@@ -16,7 +16,22 @@ class ProdukController extends Controller
             'data'   => $this->service->all()
         ]);
     }
+    public function show($id)
+    {
+        $produk = $this->service->find($id);
 
+        if (! $produk) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Produk tidak ditemukan'
+            ], 404);
+        }
+
+        return response()->json([
+            'status' => true,
+            'data' => $produk
+        ]);
+    }
     public function store(Request $request)
     {
         $request->validate([

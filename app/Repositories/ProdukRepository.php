@@ -15,18 +15,20 @@ class ProdukRepository
 
     public function findById($id)
     {
-        return Produk::with('kategori')->find($id);
+        return Produk::with('kategori')
+            ->where('id_produk', $id)
+            ->first();
     }
 
     public function create(array $data)
     {
-        return Produk::create($data);
+        return Produk::create($data)->load('kategori');
     }
 
     public function update(Produk $produk, array $data)
     {
         $produk->update($data);
-        return $produk;
+        return $produk->fresh('kategori');
     }
 
     public function delete(Produk $produk)
