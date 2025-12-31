@@ -5,6 +5,7 @@ use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\PelangganController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('kasir')->group(function () {
@@ -18,4 +19,5 @@ Route::middleware('auth:sanctum')->prefix('kasir')->group(function () {
     Route::apiResource('kategori', KategoriController::class);
     Route::apiResource('produk', ProdukController::class);
     Route::apiResource('transaksi', TransaksiController::class);
+    Route::apiResource('pelanggan', PelangganController::class); 
 });
