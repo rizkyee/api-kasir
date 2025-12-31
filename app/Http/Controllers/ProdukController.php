@@ -40,58 +40,89 @@ class ProdukController extends Controller
             'harga'       => 'required|numeric',
             'stok'        => 'required|integer',
             'deskripsi'   => 'nullable',
-            'gambar_produk' => 'nullable'
+            'gambar_produk' => 'nullable|image|mimes:jpg,jpeg,png|max:2048'
+
         ]);
 
-        $produk = $this->service->create($request->all());
+        $data = $request->all();
+
+        // upload gambar jika ada
+        if ($request->hasFile('gambar_produk')) {
+            $file = $request->file('gambar_produk');
+            $path = $file->store('produk', 'public');   // disimpan di storage/app/public/produk
+            $data['gambar_produk'] = $path;
+        }
+
+        $produk = $this->service->create($data);
+
+
 
         if (! $produk) {
             return response()->json([
-                'status' => false,
+                'status'  => false,
                 'message' => 'Kategori tidak ditemukan'
             ], 422);
         }
 
         return response()->json([
-            'status' => true,
+            'status'  => true,
             'message' => 'Produk berhasil ditambahkan',
-            'data' => $produk
+            'data'    => $produk
         ], 201);
     }
 
     public function update(Request $request, $id)
     {
         $request->validate([
-            'nama_produk' => 'sometimes|max:150',
-            'id_kategori' => 'sometimes|integer',
-            'harga'       => 'sometimes|numeric',
-            'stok'        => 'sometimes|integer',
-            'deskripsi'   => 'nullable',
-            'gambar_produk' => 'nullable'
+            'nama_produk'   => 'sometimes|max:150',
+            'id_kategori'   => 'sometimes|integer',
+            'harga'         => 'sometimes|numeric',
+            'stok'          => 'sometimes|integer',
+            'deskripsi'     => 'nullable',
+            'gambar_produk' => 'nullable|image|mimes:jpg,jpeg,png|max:2048'
         ]);
 
-        $produk = $this->service->update($id, $request->all());
+ 
+
+        // ambil semua field
+        $data = $request->all();
+
+        // jangan proses gambar dulu
+        unset($data['gambar_produk']);
+
+
+        // kalau ada gambar baru
+        if ($request->hasFile('gambar_produk')) {
+            $file = $request->file('gambar_produk');
+            $path = $file->store('produk', 'public');
+
+            $data['gambar_produk'] = $path;
+        }
+
+        $produk = $this->service->update($id, $data);
 
         if ($produk === null) {
             return response()->json([
-                'status' => false,
+                'status'  => false,
                 'message' => 'Produk tidak ditemukan'
             ], 404);
         }
 
         if ($produk === false) {
             return response()->json([
-                'status' => false,
+                'status'  => false,
                 'message' => 'Kategori tidak ditemukan'
             ], 422);
         }
 
         return response()->json([
-            'status' => true,
+            'status'  => true,
             'message' => 'Produk berhasil diperbarui',
-            'data' => $produk
+            'data'    => $produk
         ]);
     }
+
+
 
     public function destroy($id)
     {

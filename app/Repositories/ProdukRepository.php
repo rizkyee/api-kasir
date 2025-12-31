@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Produk;
 
+
 class ProdukRepository
 {
     public function getAll()
@@ -24,12 +25,18 @@ class ProdukRepository
     {
         return Produk::create($data)->load('kategori');
     }
-
     public function update(Produk $produk, array $data)
     {
-        $produk->update($data);
+
+        $produk->fill($data);
+
+
+        $produk->save();
+
+
         return $produk->fresh('kategori');
     }
+
 
     public function delete(Produk $produk)
     {

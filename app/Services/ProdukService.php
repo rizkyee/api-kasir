@@ -2,8 +2,10 @@
 
 namespace App\Services;
 
+use App\Models\Produk;
 use App\Repositories\ProdukRepository;
 use App\Repositories\KategoriRepository;
+use Illuminate\Support\Facades\Storage;
 
 class ProdukService
 {
@@ -34,19 +36,37 @@ class ProdukService
 
     public function update($id, array $data)
     {
-        $produk = $this->repo->findById($id);
 
-        if (! $produk) return null;
+        $produk = Produk::find($id);
 
-        // cek kategori baru (kalau diubah)
+        if (! $produk) {
+            return null;
+        }
+
+
         if (isset($data['id_kategori'])) {
             if (! $this->kategoriRepo->findById($data['id_kategori'])) {
                 return false;
             }
         }
 
-        return $this->repo->update($produk, $data);
+        if (!empty($data['gambar_produk'])) {
+            if ($produk->gambar_produk) {
+                Storage::disk('public')->delete($produk->gambar_produk);
+            }
+        }
+
+        $this->repo->update($produk, $data);
+
+        $fresh = $produk->fresh('kategori');
+
+
+        return $fresh;
     }
+
+
+
+
 
     public function delete($id)
     {
