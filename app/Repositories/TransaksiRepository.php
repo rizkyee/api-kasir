@@ -38,12 +38,4 @@ class TransaksiRepository
         return Produk::find($id);
     }
 
-    public function updateTransaksi($id, array $data)
-    {
-        $transaksi = Transaksi::find($id);
-        if (!$transaksi) return null;
-
-        $transaksi->update($data);
-        return $transaksi;
-    }
 }

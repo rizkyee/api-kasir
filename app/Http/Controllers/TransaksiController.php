@@ -53,18 +53,4 @@ class TransaksiController extends Controller
         ]);
     }
 
-
-    public function update(Request $request, $id)
-    {
-        $result = $this->service->updateTransaksi($request, $id);
-
-        if (isset($result['error'])) {
-            return response()->json(['message' => $result['error']], $result['status']);
-        }
-
-        return response()->json([
-            'message' => 'Transaksi berhasil diperbarui',
-            'data'    => $result['data']
-        ]);
-    }
 }
