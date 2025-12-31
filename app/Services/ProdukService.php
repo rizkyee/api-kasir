@@ -71,9 +71,12 @@ class ProdukService
     public function delete($id)
     {
         $produk = $this->repo->findById($id);
-
         if (! $produk) return false;
-
+    
+        if ($produk->gambar_produk) {
+            Storage::disk('public')->delete($produk->gambar_produk);
+        }
+    
         return $this->repo->delete($produk);
     }
 }
