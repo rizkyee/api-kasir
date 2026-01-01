@@ -8,9 +8,11 @@ use App\Models\Produk;
 
 class TransaksiRepository
 {
-    public function all()
+    public function paginate($perPage = 10)
     {
-        return Transaksi::with(['pelanggan', 'metode'])->get();
+        return Transaksi::with(['pelanggan', 'metode'])
+            ->orderByDesc('tanggal')
+            ->paginate($perPage);
     }
 
     public function findById($id)

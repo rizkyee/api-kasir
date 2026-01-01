@@ -14,14 +14,18 @@ class TransaksiController extends Controller
         $this->service = $service;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $data = $this->service->listTransaksi();
+        $perPage = $request->get('per_page', 10);
+
+        $data = $this->service->listTransaksi($perPage);
+
         return response()->json([
             'message' => 'Data transaksi',
             'data'    => $data
         ]);
     }
+
 
     public function show($id)
     {

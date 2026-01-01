@@ -14,10 +14,11 @@ class TransaksiService
         $this->repo = $repo;
     }
 
-    public function listTransaksi()
+    public function listTransaksi($perPage = 10)
     {
-        return $this->repo->all();
+        return $this->repo->paginate($perPage);
     }
+
 
     public function detailTransaksi($id)
     {
