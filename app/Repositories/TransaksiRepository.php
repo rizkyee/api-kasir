@@ -10,7 +10,7 @@ class TransaksiRepository
 {
     public function all()
     {
-        return Transaksi::all();
+        return Transaksi::with(['pelanggan', 'metode'])->get();
     }
 
     public function findById($id)
