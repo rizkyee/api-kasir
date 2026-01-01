@@ -14,10 +14,12 @@ class TransaksiService
         $this->repo = $repo;
     }
 
-    public function listTransaksi($perPage = 10)
+
+    public function listTransaksi($perPage = 10, $filters = [])
     {
-        return $this->repo->paginate($perPage);
+        return $this->repo->filterPaginate($filters, $perPage);
     }
+
 
 
     public function detailTransaksi($id)
@@ -77,7 +79,6 @@ class TransaksiService
 
             DB::commit();
             return ['data' => $transaksi->load('detail')];
-
         } catch (\Throwable $e) {
             DB::rollBack();
             return [

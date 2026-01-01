@@ -21,13 +21,24 @@ class TransaksiController extends Controller
     public function index(Request $request)
     {
         $perPage = $request->get('per_page', 10);
-        $data = $this->service->listTransaksi($perPage);
+
+        // Ambil filter dari query params
+        $filters = [
+            'start_date' => $request->get('start_date'),
+            'end_date'   => $request->get('end_date'),
+            'status'     => $request->get('status'),
+            'id_metode'  => $request->get('id_metode'),
+            'search'     => $request->get('search')
+        ];
+
+        $data = $this->service->listTransaksi($perPage, $filters);
 
         return response()->json([
             'message' => 'Data transaksi',
             'data'    => $data
         ]);
     }
+
 
     public function show($id)
     {
