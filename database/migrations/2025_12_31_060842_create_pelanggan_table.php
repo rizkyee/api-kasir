@@ -7,12 +7,15 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
+        if (Schema::hasTable('pelanggan')) {
+            return;
+        }
         Schema::create('pelanggan', function (Blueprint $table) {
             $table->increments('id_pelanggan');
             $table->string('nama_pelanggan', 100);
             $table->string('alamat', 255)->nullable();
             $table->string('no_telp', 20)->nullable();
-            $table->enum('jenis_kelamin', ['L','P']);
+            $table->enum('jenis_kelamin', ['L', 'P']);
         });
     }
 

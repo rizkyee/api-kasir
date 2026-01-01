@@ -11,7 +11,7 @@ class User extends Model
 
     protected $table = 'user';
     protected $primaryKey = 'id_user';
-
+    public $incrementing = true;
     public $timestamps = true;
 
     protected $fillable = [
@@ -26,4 +26,8 @@ class User extends Model
     protected $hidden = [
         'password',
     ];
+    public function aktivitas()
+    {
+        return $this->hasMany(\App\Models\AktivitasUser::class, 'id_user');
+    }
 }

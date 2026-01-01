@@ -11,6 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if (Schema::hasTable('detail_transaksi')) {
+            return;
+        }
         Schema::create('detail_transaksi', function (Blueprint $table) {
             $table->increments('id_detail');
             $table->integer('id_transaksi')->unsigned();
