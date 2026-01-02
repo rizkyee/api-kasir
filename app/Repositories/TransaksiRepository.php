@@ -44,29 +44,21 @@ class TransaksiRepository
     {
         $query = Transaksi::with(['pelanggan', 'metode', 'user']);
 
-        // Filter tanggal (start_date & end_date)
-        // Filter tanggal
         if (!empty($filters['start_date']) && empty($filters['end_date'])) {
-            // Hanya tanggal tertentu
             $query->whereDate('tanggal', $filters['start_date']);
         } elseif (!empty($filters['start_date']) && !empty($filters['end_date'])) {
-            // Range tanggal
             $query->whereDate('tanggal', '>=', $filters['start_date'])
                 ->whereDate('tanggal', '<=', $filters['end_date']);
         }
 
-
-        // Filter status
         if (!empty($filters['status'])) {
             $query->where('status', $filters['status']);
         }
 
-        // Filter metode
         if (!empty($filters['id_metode'])) {
             $query->where('id_metode', $filters['id_metode']);
         }
 
-        // Search no_invoice atau nama pelanggan
         if (!empty($filters['search'])) {
             $query->where(function ($q) use ($filters) {
                 $q->where('no_invoice', 'like', '%' . $filters['search'] . '%')
@@ -76,7 +68,6 @@ class TransaksiRepository
             });
         }
 
-        // Urut terbaru dulu
         $query->orderByDesc('tanggal');
 
         return $query->paginate($perPage);

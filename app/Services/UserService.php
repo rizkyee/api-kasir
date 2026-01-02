@@ -51,7 +51,6 @@ class UserService
             $data['password'] = Hash::make($data['password']);
         }
 
-        // 🔒 role tidak boleh diubah
         $data['role'] = 'Karyawan';
 
         return $this->users->update($user, $data);

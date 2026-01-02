@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Repositories\AktivitasUserRepository;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth; // ini yang benar
+use Illuminate\Support\Facades\Auth; 
 
 
 class AktivitasUserService
@@ -16,12 +16,9 @@ class AktivitasUserService
         $this->repo = $repo;
     }
 
-    /**
-     * Ambil semua aktivitas user
-     */
+
     public function getAktivitas()
     {
-        // Ambil user default (user pertama)
         $user = $user ?? Auth::user() ?? User::first();
 
         if (!$user) {
@@ -32,12 +29,8 @@ class AktivitasUserService
         return $this->repo->getAktivitasByUserRole($user);
     }
 
-    /**
-     * Catat aktivitas user otomatis
-     */
     public function logAktivitas($aksi, $modul, $deskripsi = null, $user = null)
     {
-        // Ambil user login jika ada, fallback ke default
         $user = $user ?? Auth::user() ?? User::first();
 
         if (!$user) {
@@ -45,7 +38,7 @@ class AktivitasUserService
         }
 
         return $this->repo->create([
-            'id_user' => $user->id_user, // pastikan pakai id_user
+            'id_user' => $user->id_user, 
             'aksi' => $aksi,
             'modul' => $modul,
             'deskripsi' => $deskripsi,

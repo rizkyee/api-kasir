@@ -22,7 +22,6 @@ class TransaksiController extends Controller
     {
         $perPage = $request->get('per_page', 10);
 
-        // Ambil filter dari query params
         $filters = [
             'start_date' => $request->get('start_date'),
             'end_date'   => $request->get('end_date'),
@@ -64,7 +63,6 @@ class TransaksiController extends Controller
             return response()->json(['message' => $result['error']], $result['status']);
         }
 
-        // Log aktivitas otomatis dengan no_invoice
         $this->aktivitasService->logAktivitas(
             'Tambah',
             'Transaksi',

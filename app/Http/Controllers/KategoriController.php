@@ -32,19 +32,6 @@ class KategoriController extends Controller
         ], 201);
     }
 
-    // public function show($id)
-    // {
-    //     $kategori = $this->service->find($id);
-
-    //     if (! $kategori) {
-    //         return response()->json([
-    //             'status' => false,
-    //             'message' => 'Kategori tidak ditemukan'
-    //         ], 404);
-    //     }
-
-    //     return $kategori;
-    // }
 
     public function update(Request $request, $id)
     {

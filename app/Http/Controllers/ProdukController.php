@@ -46,10 +46,9 @@ class ProdukController extends Controller
 
         $data = $request->all();
 
-        // upload gambar jika ada
         if ($request->hasFile('gambar_produk')) {
             $file = $request->file('gambar_produk');
-            $path = $file->store('produk', 'public');   // disimpan di storage/app/public/produk
+            $path = $file->store('produk', 'public');  
             $data['gambar_produk'] = $path;
         }
 
@@ -84,10 +83,8 @@ class ProdukController extends Controller
 
  
 
-        // ambil semua field
         $data = $request->all();
 
-        // jangan proses gambar dulu
         unset($data['gambar_produk']);
 
 

@@ -14,9 +14,6 @@ class AktivitasUserController extends Controller
         $this->service = $service;
     }
 
-    /**
-     * List aktivitas user
-     */
     public function index()
     {
         try {

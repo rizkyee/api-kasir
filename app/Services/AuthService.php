@@ -20,14 +20,12 @@ class AuthService
             ]);
         }
 
-        // Jika role dikirim → pastikan cocok
         if ($role && $user->role !== $role) {
             throw ValidationException::withMessages([
                 'role' => ['Role tidak sesuai']
             ]);
         }
 
-        // 🔴 Cek status
         if ($user->status !== 'Aktif') {
             throw ValidationException::withMessages([
                 'status' => ['Akun Anda tidak aktif. Silakan hubungi admin.']

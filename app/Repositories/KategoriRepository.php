@@ -18,10 +18,8 @@ class KategoriRepository
 
     public function create(array $data)
     {
-        // ambil id terbesar saat ini
         $nextId = (Kategori::max('id_kategori') ?? 0) + 1;
 
-        // set id otomatis
         $data['id_kategori'] = $nextId;
 
         return Kategori::create($data);

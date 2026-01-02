@@ -26,7 +26,6 @@ class ProdukService
 
     public function create(array $data)
     {
-        // cek kategori harus ada
         if (! $this->kategoriRepo->findById($data['id_kategori'])) {
             return null;
         }

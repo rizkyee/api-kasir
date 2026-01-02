@@ -11,7 +11,6 @@ class Kategori extends Model
 
     public $timestamps = false;
 
-    // ❗ ID tidak auto increment
     public $incrementing = false;
 
     protected $keyType = 'int';

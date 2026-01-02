@@ -8,7 +8,7 @@ class AktivitasUser extends Model
 {
     protected $table = 'aktivitas_user';
     protected $primaryKey = 'id_aktivitas';
-    public $timestamps = false; // karena kita pakai created_at manual
+    public $timestamps = false;
 
     protected $fillable = [
         'id_user',
