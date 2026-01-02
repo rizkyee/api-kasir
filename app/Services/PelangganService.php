@@ -22,4 +22,9 @@ class PelangganService
     {
         return $this->repo->findById($id);
     }
+    
+    public function tambahPelanggan($data)
+    {
+        return $this->repo->create($data);
+    }
 }

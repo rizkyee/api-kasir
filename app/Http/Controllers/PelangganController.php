@@ -38,4 +38,20 @@ class PelangganController extends Controller
             'data'    => $data
         ]);
     }
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'nama_pelanggan' => 'required|string|max:100',
+            'alamat'         => 'nullable|string',
+            'no_telp'        => 'nullable|string|max:20',
+            'jenis_kelamin'  => 'required|in:L,P'
+        ]);
+
+        $pelanggan = $this->service->tambahPelanggan($validated);
+
+        return response()->json([
+            'message' => 'Pelanggan berhasil ditambahkan',
+            'data'    => $pelanggan
+        ], 201);
+    }
 }

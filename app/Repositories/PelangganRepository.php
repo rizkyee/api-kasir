@@ -15,4 +15,8 @@ class PelangganRepository
     {
         return Pelanggan::find($id);
     }
+    public function create(array $data)
+    {
+        return Pelanggan::create($data);
+    }
 }
